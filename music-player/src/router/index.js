@@ -16,6 +16,10 @@ const routes = [
   {
     path: "/manage",
     component: ManagePage,
+    beforeEnter: (from, to, next) => {
+      console.log("custom guard");
+      next();
+    },
   },
   {
     path: "/:catchAll(.*)*",
@@ -27,6 +31,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   linkExactActiveClass: "text-yellow-500",
+});
+
+router.beforeEach((to, from, next) => {
+  console.log("Global Quard", from, to);
+  next();
 });
 
 export default router;
